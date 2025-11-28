@@ -1,0 +1,6 @@
+<span class="status-badge" :class="jenis">
+  <span v-if="jenis==='badge-aman'">✔</span>
+  <span v-else-if="jenis==='badge-menipis'">⚠</span>
+  <span v-else>✖</span>
+  &nbsp; {{ teks }}
+</span>

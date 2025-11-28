@@ -1,0 +1,10 @@
+<div v-if="show" class="modal-overlay" @click.self="close">
+  <div class="modal-card">
+    <div class="modal-title">{{ title }}</div>
+    <div class="modal-body"><slot></slot></div>
+    <div style="text-align:right;">
+      <button class="secondary" @click="close">Batal</button>
+      <button class="primary" @click="ok" style="margin-left:8px;">OK</button>
+    </div>
+  </div>
+</div>

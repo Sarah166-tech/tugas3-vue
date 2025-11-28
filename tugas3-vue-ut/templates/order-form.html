@@ -1,0 +1,32 @@
+<div class="card">
+  <h2>📝 Form Input Order</h2>
+
+  <label>NIM</label>
+  <input v-model="nim" @keyup.enter="submit">
+
+  <label>Nama</label>
+  <input v-model="nama" @keyup.enter="submit">
+
+  <label>Ekspedisi</label>
+  <select v-model="ekspedisi">
+    <option value="" disabled>Pilih Ekspedisi</option>
+    <option v-for="p in ekspedisiList" :key="p.kode" :value="p.kode">{{ p.nama }}</option>
+  </select>
+
+  <label>Paket</label>
+  <select v-model="paketKode">
+    <option value="" disabled>Pilih Paket</option>
+    <option v-for="p in paketList" :value="p.kode">{{ p.kode }} — {{ p.nama }}</option>
+  </select>
+
+  <div v-if="selectedPaket">
+    <h4>Isi Paket</h4>
+    <ul><li v-for="i in selectedPaket.isi">{{ i }}</li></ul>
+    <p><strong>Total Harga:</strong> {{ formatCurrency(selectedPaket.harga) }}</p>
+  </div>
+
+  <label>Tanggal Kirim</label>
+  <input type="date" v-model="tanggalKirim" @keyup.enter="submit">
+
+  <button class="primary" @click="submit">Buat DO</button>
+</div>

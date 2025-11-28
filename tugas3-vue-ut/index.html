@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <title>Tugas 3 - Stok & Tracking DO (Vue)</title>
+
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <!-- Vue 2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <div id="app">
+    <nav>
+      <button @click="tab='stok'">Stok Bahan Ajar</button>
+      <button @click="tab='tracking'">Tracking DO</button>
+      <button @click="tab='order'">Order Baru</button>
+    </nav>
+
+    <div v-if="tab==='stok'">
+      <ba-stock-table></ba-stock-table>
+    </div>
+
+    <div v-if="tab==='tracking'">
+      <do-tracking></do-tracking>
+    </div>
+
+    <div v-if="tab==='order'">
+      <order-form></order-form>
+    </div>
+  </div>
+
+  <!-- app root -->
+  <script src="js/app.js"></script>
+
+  <!-- services -->
+  <script src="js/services/api.js"></script>
+
+  <!-- components (register async templates inside each) -->
+  <script src="js/components/status-badge.js"></script>
+  <script src="js/components/app-modal.js"></script>
+  <script src="js/components/stock-table.js"></script>
+  <script src="js/components/do-tracking.js"></script>
+  <script src="js/components/order-form.js"></script>
+</body>
+</html>

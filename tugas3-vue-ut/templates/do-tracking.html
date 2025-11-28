@@ -1,0 +1,73 @@
+<div class="card">
+  <h2>🚚 Tracking Delivery Order</h2>
+
+  <div style="display:flex; gap:12px; align-items:center; margin-bottom:12px; flex-wrap:wrap;">
+    <input v-model="keyword" placeholder="Cari DO atau NIM" @keyup.enter="searchDo" @keyup.esc="clearSearch" style="min-width:260px;">
+    <button class="primary" @click="searchDo">Cari</button>
+    <button class="secondary" @click="clearSearch">Reset</button>
+  </div>
+
+  <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:12px;">
+    <div style="min-width:220px;">
+      <label>Ekspedisi</label>
+      <select v-model="form.ekspedisi">
+        <option value="" disabled>— Pilih —</option>
+        <option v-for="p in pengirimanList" :key="p.kode" :value="p.kode">{{ p.nama }}</option>
+      </select>
+    </div>
+
+    <div style="min-width:220px;">
+      <label>Paket</label>
+      <select v-model="form.paket">
+        <option value="" disabled>— Pilih Paket —</option>
+        <option v-for="p in paket" :key="p.kode" :value="p.kode">{{ p.kode }} - {{ p.nama }}</option>
+      </select>
+    </div>
+
+    <div style="min-width:220px;">
+      <label>Tanggal Kirim</label>
+      <input type="date" v-model="form.tanggalKirim">
+    </div>
+  </div>
+
+  <div v-if="selectedPaket">
+    <h4>Isi Paket</h4>
+    <ul><li v-for="i in selectedPaket.isi">{{ i }}</li></ul>
+    <p><strong>Total Harga:</strong> {{ formatCurrency(selectedPaket.harga) }}</p>
+  </div>
+
+  <div style="margin-top:8px;">
+    <label>NIM</label>
+    <input v-model="form.nim">
+
+    <label>Nama</label>
+    <input v-model="form.nama">
+
+    <button class="primary" @click="createDo">Buat DO</button>
+  </div>
+
+  <hr style="margin:16px 0;">
+
+  <div v-if="searchResult">
+    <h3>Hasil: {{ searchResult.no }}</h3>
+    <p><strong>NIM:</strong> {{ searchResult.nim }}</p>
+    <p><strong>Nama:</strong> {{ searchResult.nama }}</p>
+    <p><strong>Status:</strong> {{ searchResult.status }}</p>
+    <p><strong>Tanggal Kirim:</strong> {{ formatDate(searchResult.tanggalKirim) }}</p>
+    <p><strong>Paket:</strong> {{ searchResult.paket }}</p>
+    <p><strong>Total:</strong> {{ formatCurrency(searchResult.total) }}</p>
+
+    <h4>Perjalanan</h4>
+    <ul><li v-for="p in searchResult.perjalanan">{{ p.waktu }} — {{ p.keterangan }}</li></ul>
+
+    <div style="margin-top:10px;">
+      <input v-model="progressKeterangan" placeholder="Keterangan progress..." @keyup.enter="addProgress">
+      <button class="primary" @click="addProgress">Tambah Progress</button>
+    </div>
+  </div>
+
+  <div style="margin-top:14px;">
+    <h4>Semua DO (ringkasan)</h4>
+    <ul><li v-for="k in allKeys">{{ k }} — {{ trackingMap[k].nama }} — {{ trackingMap[k].status }}</li></ul>
+  </div>
+</div>
